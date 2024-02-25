@@ -1,0 +1,42 @@
+components:
+  schemas:
+    ApiError:
+      type: object
+      required:
+        - exception
+        - message
+      properties:
+        exception:
+          type: string
+        message:
+          type: string
+    Vehicle:
+      type: object
+      required:
+        - processType
+      properties:
+        vehicleId:
+          type: integer
+          format: int64
+        category:
+          type: string
+          enum: [SEDAN, VAN, SUV, COUPE, TRUCK]
+        vehicleMake:
+          type: string
+          minLength: 3
+          maxLength: 50
+        vehicleName:
+          type: string
+          minLength: 3
+          maxLength: 100
+        vehicleYear:
+          type: integer
+          format: int32
+        vin:
+          type: string
+          minLength: 11
+          maxLength: 17
+    Vehicles:
+      type: array
+      items:
+        $ref: "#/components/schemas/Vehicle"

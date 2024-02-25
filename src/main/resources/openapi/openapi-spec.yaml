@@ -1,0 +1,76 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Batch Scheduler Statistic Service
+  license:
+    name: MIT
+servers:
+  - url: http://localhost/v1/batch-schedulers
+paths:
+  /vehicle/add:
+    post:
+      summary: Add a new vehicle to the fleet inventory
+      operationId: addVehicle
+      requestBody:
+        description: Optional description in *Markdown*
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "./schemas/models.yaml#/components/schemas/Vehicle"
+      tags:
+        - vehicles
+      responses:
+        '201':
+          description: Vehicle successfully added to fleet inventory
+          content:
+            application/json:
+              schema:
+                $ref: "./schemas/models.yaml#/components/schemas/Vehicle"
+  /vehicle/list:
+    get:
+      summary: List all vehicles in inventory.
+      operationId: getVehicleList
+      tags:
+        - vehicles
+      responses:
+        '200':
+          description: An array list of all available vehicles.
+          content:
+            application/json:
+              schema:
+                $ref: "./schemas/models.yaml#/components/schemas/Vehicles"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "./schemas/models.yaml#/components/schemas/ApiError"
+  /vehicle/vin/{vinNumber}:
+    get:
+      parameters:
+        - in: path
+          name: vinNumber
+          required: true
+          schema:
+            type: string
+            minimum: 1
+          description:
+            The vehicle vin number to look up.
+      summary: Get a vehicle by the vin number.
+      operationId: getVehicleByVin
+      tags:
+        - vehicles
+      responses:
+        '200':
+          description: A vehicle DTO.
+          content:
+            application/json:
+              schema:
+                $ref: "./schemas/models.yaml#/components/schemas/Vehicle"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "./schemas/models.yaml#/components/schemas/ApiError"

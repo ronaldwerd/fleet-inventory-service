@@ -1,0 +1,24 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: "fleet-inventory-service"
+  datasource:
+    url: jdbc:mysql://10.0.0.61:3306/fleet_inventory
+    username: root
+    password: my-secret-pw
+    driverClassName: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health, info, mappings, loggers, env, metrics, scheduledTasks, sessions"
+  info:
+    env:
+      enabled: true
+

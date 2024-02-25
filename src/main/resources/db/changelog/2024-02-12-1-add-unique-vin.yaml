@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: table-vehicle-add-unique-vin
+      author: Ronald Partridge
+      changes:
+        - addUniqueConstraint:
+            tableName: vehicle
+            columnNames: vin
